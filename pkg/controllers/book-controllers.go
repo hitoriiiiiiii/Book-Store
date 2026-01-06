@@ -13,7 +13,11 @@ import (
 var NewBook models.Book 
 
 func GetBooks(w http.ResponseWriter, r *http.Request){
-	newBooks, _ := NewBook.GetAllBooks()
+	newBooks, err := NewBook.GetAllBooks()
+	if err != nil {
+		http.Error(w, "failed to fetch books: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
 	res, _ := json.Marshal(newBooks)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
@@ -25,7 +29,8 @@ func GetBookById(w http.ResponseWriter, r *http.Request){
 	bookId := vars["bookId"]
 	ID, err := strconv.ParseInt(bookId, 0, 0)
 	if err != nil {
-		fmt.Println("error while parsing")
+		http.Error(w, "invalid book id", http.StatusBadRequest)
+		return
 	}
 	_bookDetails, _ := NewBook.GetBooksById(ID)
 	res, _ := json.Marshal(_bookDetails)
@@ -37,9 +42,14 @@ func GetBookById(w http.ResponseWriter, r *http.Request){
 func CreateBook(w http.ResponseWriter, r *http.Request){
 	CreateBook := &models.Book{}
 	utils.ParseBody(r, CreateBook)
-	b, _ := CreateBook.CreateBook()
+	b, err := CreateBook.CreateBook()
+	if err != nil {
+		http.Error(w, "failed to create book: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
 	res, _ := json.Marshal(b)
-	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
 	w.Write(res)
 }
 
