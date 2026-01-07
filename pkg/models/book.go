@@ -1,7 +1,6 @@
 package models
 
 import (
-	"errors"
 	"github.com/jinzhu/gorm"
 	"Go-bookstore/pkg/config"
 )
@@ -26,9 +25,8 @@ func init() {
 
 func (b *Book) CreateBook() (*Book, error) {
 	if db == nil {
-		// store in memory fallback
-		// simulate ID using gorm.Model auto-increment via length
-		b.ID = 0
+		// store in memory fallback and assign a simple incrementing ID
+		b.ID = uint(len(fallbackBooks) + 1)
 		fallbackBooks = append(fallbackBooks, *b)
 		return b, nil
 	}
