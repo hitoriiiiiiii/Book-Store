@@ -1,0 +1,26 @@
+# Go build
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go modules
+vendor/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment files
+.env
+
+# Docker volumes
+db-data/
+
+# OS files
+.DS_Store
+Thumbs.db

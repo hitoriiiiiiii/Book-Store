@@ -23,7 +23,7 @@ func init() {
 	}
 }
 
-func (b *Book) CreateBook() (*Book, error) {
+func (b *Book) CreateBookHandler() (*Book, error) {
 	if db == nil {
 		// store in memory fallback and assign a simple incrementing ID
 		b.ID = uint(len(fallbackBooks) + 1)
