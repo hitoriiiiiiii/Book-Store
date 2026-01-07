@@ -42,7 +42,7 @@ Go-bookstore/
 #RUN WITH DOCKER
 
 1. Clone repository
-git clone https://github.com/your-username/go-bookstore.git
+git clone https://github.com/hitoriiiiiiii/Book-Store.git
 cd go-bookstore
 
 2. Create env file
