@@ -13,4 +13,4 @@ var RegisterBookStoreRoutes = func(router *mux.Router){
 	router.HandleFunc("/books/{bookId}", controllers.DeleteBook).Methods("DELETE")
 }
 
-//purpose of this file is to register all the routes related to book store
+// purpose of this file is to register all the routes related to book store

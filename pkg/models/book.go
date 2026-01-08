@@ -36,6 +36,7 @@ func (b *Book) CreateBookHandler() (*Book, error) {
 	return b, nil
 }
 
+//fetch all books from the database with Redis caching
 func (b *Book) GetAllBooks() ([]Book, error) {
 	if db == nil {
 		return fallbackBooks, nil

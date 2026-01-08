@@ -1,15 +1,27 @@
 package main
 
 import (
-	"log"
-	"net/http"
-	"github.com/gorilla/mux"
-	"Go-bookstore/pkg/routes"
+    "Go-bookstore/pkg/config"
+    "Go-bookstore/pkg/utils"
+    "Go-bookstore/pkg/routes"
+    "github.com/gorilla/mux"
+    "log"
+    "net/http"
 )
 
 func main() {
-	r := mux.NewRouter()
-	routes.RegisterBookStoreRoutes(r)
-	http.Handle("/", r)
-	log.Fatal(http.ListenAndServe(":8080", r))
+	//Initalize Redis
+	utils.InitRedis()
+    // Initialize MySQL
+    config.GetDB()
+
+    // Initialize Redis
+    utils.InitRedis()
+
+    // Router
+    router := mux.NewRouter()
+    routes.RegisterBookStoreRoutes(router)
+
+	log.Println("Server running on port 8080")
+    http.ListenAndServe(":8080", router)
 }
