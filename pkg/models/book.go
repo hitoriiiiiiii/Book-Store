@@ -16,8 +16,8 @@ type Book struct {
 }
 
 func init() {
-	config.GetDB()
-	db = config.Getdb()
+	// initialize and assign the DB returned by config
+	db = config.GetDB()
 	if db != nil {
 		db.AutoMigrate(&Book{})
 	}
